@@ -1,6 +1,6 @@
 // import { webhook } from 'svix';
 import pkg from 'svix';
-const { webhook } = pkg;
+const { Webhook } = pkg;
 import userModel from '../models/userModel.js';
 //api controller function to mange clerk user with database
 //http://localhost:4000/api/user/webhooks
@@ -9,7 +9,7 @@ const clerkWebhooks=async (req,res)=>{
   
     try{
      //create a svix instance with clerk webhook secret.
-     const whook=new webhook(process.env.CLERK_WEB_HOOK_SECRET)
+     const whook=new Webhook(process.env.CLERK_WEB_HOOK_SECRET)
 
       await whook.verify(JSON.stringify(req.body),{
         "svix-id":req.headrs["svix-id"],
