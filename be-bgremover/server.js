@@ -12,15 +12,17 @@ const startServer = async () => {
 
     const app = express();
 
-    // Special raw body parser only for webhooks
-    app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
+// Capture raw body for Clerk Webhooks
+app.use('/api/user/webhooks', express.raw({ type: '*/*' }));
 
-    // Normal JSON parser for other routes
-    app.use(express.json());
-    app.use(cors());
+// Then for other routes, parse JSON
+app.use(express.json());
+app.use(cors());
 
-    // API routes
-    app.get('/', (req, res) => res.send('API Working'));
+// API routes
+app.get('/', (req, res) => res.send('API Working'));
+app.use('/api/user', userRouter);
+
     app.use('/api/user', userRouter);
 
     app.listen(PORT, () => console.log(`Server Running On Port ${PORT}`));
