@@ -1,6 +1,6 @@
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
 import connectDB from './config/mongodb.js';
 import userRouter from './routes/userRoutes.js';
 
@@ -12,7 +12,10 @@ const startServer = async () => {
 
     const app = express();
 
-    // Initialize Middlewares
+    // Special raw body parser only for webhooks
+    app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
+
+    // Normal JSON parser for other routes
     app.use(express.json());
     app.use(cors());
 
@@ -23,7 +26,7 @@ const startServer = async () => {
     app.listen(PORT, () => console.log(`Server Running On Port ${PORT}`));
   } catch (err) {
     console.error('Error starting server:', err.message);
-    process.exit(1); // Exit if DB connection fails
+    process.exit(1);
   }
 };
 
