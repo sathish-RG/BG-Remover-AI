@@ -1,6 +1,5 @@
-// import { webhook } from 'svix';
-import pkg from 'svix';
-const { Webhook } = pkg;
+import { Webhook } from 'svix';
+// const { Webhook } = pkg;
 import userModel from '../models/userModel.js';
 //api controller function to mange clerk user with database
 //http://localhost:4000/api/user/webhooks
